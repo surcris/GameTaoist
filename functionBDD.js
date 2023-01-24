@@ -14,16 +14,17 @@ function readData () {
             keyG.push(key);
             
             listPersoBDD = childSnap.val() 
-            console.log(listPersoBDD);
+            //console.log(listPersoBDD);
 
         })
         //addElement();
         creationDiv();
     })
     
-    return keyG;
+    return listPersoBDD;
 }
 
+console.log(readData()); // le return est undefined
 
 function creationDiv() {
 
