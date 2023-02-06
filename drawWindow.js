@@ -23,24 +23,27 @@ function cercle(ctx,rayon,color) {
 
 let progress = 0
 function progressBar() {
+    // Utilisez requestAnimationFrame pour une meilleure performance visuelle
+    requestAnimationFrame(progressBar);
+    //i.display();
+    //editPersonnage(i);
 
-    requestAnimationFrame(progressBar)
     ctx.beginPath();
+    ctx.fillStyle = '#4CAF50';
 
+    // La barre de progression est dessinée à l'aide de fillRect, en utilisant les valeurs actuelles de x, y, et progress
+    ctx.fillRect(x * 0.2, y * 0.9, progress, 10);
 
-    ctx.fillRect(x*0.2,y*0.9,progress,10);
-
-    //ctx.fillRect(x*0.15,y*0.9,progress,10);
-
-    if (progress>= x*0.6) {
-        ctx.clearRect(x*0.21,y*0.89,x*0.6,15);
-        progress=0;
+    // Si la barre de progression a atteint 60% de la largeur de la canvas, effacez-la et réinitialisez-la à zéro
+    if (progress >= x * 0.6) {
+        ctx.clearRect(x * 0.21, y * 0.89, x * 0.6, 15);
+        progress = 0;
         i.levelUp();
-        //i.display();
-        //editPersonnage(i);
+        editPersonnage(i);
     }
-    progress+=0.5;
 
+    // Augmentez la valeur de progress de 0,5 à chaque tour de boucle
+    progress += 1;
 
 }
 
@@ -75,7 +78,7 @@ function pointe(ctx,rayon,color) {
 //================MAIN===================
 
 function draw() {
-    creationDiv();
+    
     pointe(ctx,100,'rgb(211, 84, 0)')
     cercle(ctx,100,'#2c343f');
     cercle(ctx,80,'rgb(211, 84, 0)');

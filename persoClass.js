@@ -69,11 +69,25 @@ class Personnage{
         this.niveau = niveau;
     }
     levelUp(){
-        if (this.xp == this.niveau ) {
+        
+        let exp = 200*this.niveau*(1+this.niveau);
+        
+        this.gainXp();
+        console.log("xp requie : ",exp," ||| ","xp obtenu : ",this.xp);
+        if (this.xp >= exp ) {
             this.niveau += 1;
+            this.display();
+            this.xp = 0;
+            //this.getNiveau();
         }
         
     }
+    gainXp(){
+        this.xp += 100;
+        
+        return this.xp;
+    }
+
 
     degatEau(){
         
