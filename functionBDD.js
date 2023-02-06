@@ -4,7 +4,7 @@ import {cultRef} from './persoClass.js';
 let keyG = [];
 let listPersoBDD;
 
-function readData () {
+ function readData () {
     //cultRef.on('value',(snap) == chaque fois une 'value' est modifier je fais cette instruction
     
     cultRef.on('value',(snap)=>{
@@ -13,57 +13,88 @@ function readData () {
             let key = childSnap.key;
             keyG.push(key);
             
-            listPersoBDD = childSnap.val() 
-            //console.log(listPersoBDD);
-
+            //listPersoBDD = childSnap.val() 
+            
+            
         })
+        
         //addElement();
-        creationDiv();
+        //creationDiv();
     })
+    //console.log("readData");
     
-    return listPersoBDD;
+}
+//readData();
+function getData() {
+    let containerStats = document.getElementById(`div-stats`);
+    let database = firebase.database();
+    
+    return new Promise((resolve, reject) => {
+        
+        cultRef.on('value', (snapshot) => {
+            snapshot.forEach(childSnap => {
+
+                let key = childSnap.key;
+                keyG.push(key);
+                
+                listPersoBDD = childSnap.val() 
+                
+                
+            })
+            console.log("readData");
+            listPersoBDD = snapshot.val();
+            //console.log(listPersoBDD);
+            creationDiv(listPersoBDD[keyG[0]]);
+
+        resolve(snapshot.val());
+      });
+    });
+
 }
 
-console.log(readData()); // le return est undefined
 
-function creationDiv() {
 
-   
-    let containerStats = document.querySelector('#div-stats');
+getData();
+function creationDiv(tab) {
     
+    
+    //console.log(listPersoBDD[keyG[0]]);
+    let containerStats = document.getElementById('div-stats');
+    containerStats.innerHTML = '';
     // for(let key in listPersoBDD) {
     //     creationDivValue(containerStats,key,listPersoBDD[key])
     //     
     // }
 
-    for(let key in listPersoBDD) {
-        console.log(key, listPersoBDD[key]);
+    for(let key in tab) {
+        //console.log(key, l_listPersoBDD[key]);
         if (key == 'nom' || key =='niveau' || key =='xp') {
-            creationDivValue(containerStats,key,listPersoBDD[key])
+            creationDivValue(containerStats,key,tab[key])
         }
     }
-    for(let key in listPersoBDD) {
+    for(let key in tab) {
         //console.log(key, listPersoBDD[key]);
         if (key == 'air' || key =='eau' || key =='feu' || key =='terre') {
-            creationDivValue(containerStats,key,listPersoBDD[key])
+            creationDivValue(containerStats,key,tab[key])
         }
     }
-    for(let key in listPersoBDD){
+    for(let key in tab){
         if (key == 'dommage' || key =='puissance') {
-            creationDivValue(containerStats,key,listPersoBDD[key])
+            creationDivValue(containerStats,key,tab[key])
         }
     }
-    for(let key in listPersoBDD){
+    for(let key in tab){
         if (key == 'resAir' || key =='resEau' || key =='resFeu' || key =='resTerre') {
-            creationDivValue(containerStats,key,listPersoBDD[key])
+            creationDivValue(containerStats,key,tab[key])
         }
     }
     
     let divStatsPart = document.querySelectorAll('.stats-player div');
 
 }
-
+creationDiv();
 function creationDivValue(parent,key,value) {
+    
     let divStat = document.createElement('div');
     divStat.setAttribute('class','stats-player');
 
@@ -74,6 +105,8 @@ function creationDivValue(parent,key,value) {
     parent.append(divStat);
 
     if (key == 'air' || key =='eau' || key =='feu' || key =='terre'){
+
+        divValueStat.setAttribute('att',key);
         divNomStat.innerText = key;
         divValueStat.innerText = value;
         divBtnStat.innerText = '+';
@@ -82,6 +115,7 @@ function creationDivValue(parent,key,value) {
         divStat.append(divValueStat);
         divStat.append(divBtnStat);
     }else{
+        divValueStat.setAttribute('att',key);
         divNomStat.innerText = key;
         divValueStat.innerText = value;
 
@@ -92,14 +126,19 @@ function creationDivValue(parent,key,value) {
     
 }
 
+function updateAffichage() {
+    const valueUpdate = document.getElementById(`card-stats`);
+    console.log(valueUpdate);
+}
+//updateAffichage()
 
 
-async function editPersonnage(perso) {
+function editPersonnage(perso) {
     let tab = [];
-    tab[keyG] = perso;
-    //cultRef.set(tab);
-    console.log(tab);
-    
+    tab[keyG[0]] = perso;
+    cultRef.set(tab);
+    //console.log(tab);
+    //console.log(Object.keys(listPersoBDD)[0])
 }
 function addElement() {
     let tab = { exeep:0 };
