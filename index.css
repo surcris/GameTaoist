@@ -10,7 +10,7 @@ body{
 
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr;
-    grid-template-rows: 1.5fr 1fr 0fr;
+    grid-template-rows: 1.5fr 1fr ;
     gap: 0px 0px;
     grid-auto-flow: row;
    
@@ -24,7 +24,7 @@ h1{
     filter: blur(31px);
     transition: 200ms;
 }
-canvas{
+#myCanvas{
     background-color: #2c343f;
 
     border: 1px black solid;
@@ -74,10 +74,34 @@ canvas{
 
 
 #container-combat{
-    background-color: rgb(32, 86, 133);
+    
+    background-image: url('./images/bg.jpg');
+    background-size: 100% 45%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom ;
+
     grid-row: 2;
     
 
     grid-column-start: 1;
     grid-column-end: 4;
+
+    display: flex;
+}
+
+#container-combat #PlayerCanvas, #EnnemieCanvas{
+    background-color: #2c343f6e ;
+    
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+#container-combat div{
+    width: 50%;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

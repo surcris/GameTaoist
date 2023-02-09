@@ -3,7 +3,11 @@ import {creationDiv,editPersonnage,readData,keyG,listPersoBDD} from './functionB
 
 
 let canvas = document.getElementById('myCanvas');
+let playerCanvas = document.getElementById('PlayerCanvas');
+let enemieCanvas = document.getElementById('EnnemieCanvas');
 let ctx = canvas.getContext('2d');
+let plx = playerCanvas.getContext('2d');
+let enx = enemieCanvas.getContext('2d');
 
 let x = canvas.offsetWidth;
 let y = canvas.offsetHeight;
@@ -75,13 +79,44 @@ function pointe(ctx,rayon,color) {
     //ctx.stroke();
 }
 
+function playerDraw() {
+    plx.beginPath();
+    plx.arc(150, 150, 70, 0, 2 * Math.PI);
+    plx.stroke();
+
+    plx.beginPath();
+    plx.arc(50, 50, 40, 0, Math.PI, true);
+    plx.stroke();
+}
+
+function enemieDraw() {
+    enx.beginPath();
+    enx.arc(250, 50, 40, 0, 1.5 * Math.PI);
+    enx.stroke();
+}
 //================MAIN===================
 
 function draw() {
+
+    playerDraw();
+    enemieDraw();
+   
+
     
-    pointe(ctx,100,'rgb(211, 84, 0)')
-    cercle(ctx,100,'#2c343f');
-    cercle(ctx,80,'rgb(211, 84, 0)');
+
+    ctx.beginPath();
+    ctx.arc(150, 150, 70, 0, 1 * Math.PI, true);
+    ctx.lineDash = [5, 15];
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(250, 250, 50, 0, 2 * Math.PI);
+    ctx.fillStyle = '#4CAF50';
+    ctx.fill();
+
+    //pointe(ctx,100,'rgb(211, 84, 0)')
+    //cercle(ctx,100,'#2c343f');
+    //cercle(ctx,80,'rgb(211, 84, 0)');
     //carreRotate(ctx,200)
     //requestAnimationFrame(progressBar)
 
