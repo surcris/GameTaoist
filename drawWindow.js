@@ -82,6 +82,7 @@ function pointe(ctx,rayon,color) {
 function playerDraw() {
     plx.beginPath();
     plx.arc(150, 150, 70, 0, 2 * Math.PI);
+    plx.lineWidth = 2;
     plx.stroke();
 
     plx.beginPath();
@@ -92,27 +93,52 @@ function playerDraw() {
 function enemieDraw() {
     enx.beginPath();
     enx.arc(250, 50, 40, 0, 1.5 * Math.PI);
+    enx.lineWidth = 2;
     enx.stroke();
+}
+
+
+function sinusoidale() {
+    const width = canvas.width;
+    const height = canvas.height;
+
+    ctx.beginPath();
+
+    for (let x = 0; x < width; x++) {
+      const y = height/2 + Math.sin(x/20) * height/4;
+      if (x == 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 2;
+    ctx.stroke();
 }
 //================MAIN===================
 
 function draw() {
-
-    playerDraw();
-    enemieDraw();
-   
-
+    
+    //playerDraw();
+    //enemieDraw();
     
 
-    ctx.beginPath();
-    ctx.arc(150, 150, 70, 0, 1 * Math.PI, true);
-    ctx.lineDash = [5, 15];
-    ctx.stroke();
+    // ctx.beginPath();
+    // ctx.arc(150, 150, 70, 0, 2 * Math.PI, true);
+    // ctx.lineWidth = 5;
+    // ctx.stroke();
 
-    ctx.beginPath();
-    ctx.arc(250, 250, 50, 0, 2 * Math.PI);
-    ctx.fillStyle = '#4CAF50';
-    ctx.fill();
+    // ctx.beginPath();
+    // ctx.arc(150, 150, 70, 0, 1 * Math.PI, true);
+    // ctx.lineDash = [5, 15];
+    // ctx.stroke();
+
+    // ctx.beginPath();
+    // ctx.arc(250, 250, 50, 0, 2 * Math.PI);
+    // ctx.fillStyle = '#4CAF50';
+    // ctx.fill();
 
     //pointe(ctx,100,'rgb(211, 84, 0)')
     //cercle(ctx,100,'#2c343f');
@@ -121,6 +147,5 @@ function draw() {
     //requestAnimationFrame(progressBar)
 
 }
-
 
 draw();
